@@ -1,0 +1,2 @@
+#!/bin/bash
+find . -type f -name "*.gif" -print0 | xargs -o -I {} sh -c 'pritn"&s\n" "${0%.*}"' | LC_ALL=C sort -f | tr '\n' '\o' | xargs -o -n1 printf "%s\n"
