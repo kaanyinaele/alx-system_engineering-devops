@@ -1,30 +1,18 @@
 #!/usr/bin/python3
-"""
-Function that queries the Reddit API and prints
-the top ten hot posts of a subreddit
-"""
+"""function that queries the Reddit API and returns the number of subscribers
+for a given subreddit"""
+
 import requests
 
-def number_of_subscribers(subreddit):
-    try:
-        # Construct the API URL
-        url = f"https://www.reddit.com/r/{subreddit}/about.json"
-        
-        # Set a custom User-Agent header to avoid rate limiting
-        headers = {"User-Agent": "my-app/0.0.1 (by /u/username)"}
-        
-        # Make the API request
-        response = requests.get(url, headers=headers)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Extract the subscriber count from the JSON response
-            data = response.json()
-            return data["data"]["subscribers"]
-        else:
-            # Return 0 if the subreddit is invalid
-            return 0
-    except:
-        # Return 0 if there's any error
-        return 0
 
+def number_of_subscribers(subreddit):
+    """function that queries the Reddit API and returns the number of
+    subscribers for a given subreddit"""
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    headers = {'User-Agent': 'My User Agent 1.0'}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get('data').get('subscribers')
+    else:
+        return 0
