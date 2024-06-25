@@ -1,4 +1,3 @@
-Certainly! Here's a README file content for your Puppet manifest project:
 Puppet Manifest Project for Nginx Configuration
 Overview
 
