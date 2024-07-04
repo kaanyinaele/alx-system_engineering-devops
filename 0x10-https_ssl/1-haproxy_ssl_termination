@@ -1,4 +1,14 @@
- # Default SSL material locations
+global
+        log /dev/log    local0
+        log /dev/log    local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+
+        # Default SSL material locations
         ca-base /etc/ssl/certs
         crt-base /etc/ssl/private
 
@@ -37,8 +47,9 @@ frontend www-https
 backend www-backend
     balance  roundrobin
     redirect scheme https if !{ ssl_fc }
-    server 1733-web-01 35.168.2.11:80 check
-    server 1733-web-02 54.172.154.55:80 check
+    server 530501-web-01 54.90.13.229:80 check
+    server 530501-web-02 54.237.103.15:80 check
+    server 530501-lb-01 18.204.15.36.:80 check
 
 backend letsencrypt-backend
     server letsencrypt 127.0.0.1:54321
